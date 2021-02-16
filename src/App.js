@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+
+import Form from "./components/Form/Form";
+import List from "./components/List/List";
 
 function App() {
+  const [wishes, setWishes] = useState([]);
 
-    return (
-        <div className="container">
-            <h1>App</h1>
-            <div className="cards-container">
-                <div className="card">
-                    <button className="button">remove</button>
-                </div>
-                <div className="card">
-                    <button className="button">remove</button>
-                </div>
-                <div className="card">
-                    <button className="button">remove</button>
-                </div>
-            </div>
-            <form action="" className="form"></form>
-        </div>
-    )
+  const newWish = (wish) => {
+    setWishes([...wishes, wish]);
+  };
+
+  const removeWish = (event, wishOut) => {
+    event.preventDefault();
+    const newArr = wishes.filter((wish) => wish !== wishOut);
+    setWishes([...newArr]);
+  };
+
+  return (
+    <main>
+      <List wishes={wishes} callback={removeWish} />
+      <section>
+        <Form callback={newWish} />
+      </section>
+    </main>
+  );
 }
 
-export default App
+export default App;
